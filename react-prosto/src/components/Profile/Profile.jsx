@@ -1,8 +1,10 @@
 import React from 'react';
+import s from './Profile.module.css'
+import MyPosts from './MyPosts/MyPosts';
 
 const Profile = () => {
     return (
-        <div className="content">
+        <div className={s.content}>
             <div className="content__banner">
                 <img src="https://best-quote.ru/wp-content/uploads/2019/01/rossiya_harkov_park_vecher_lavochka_879_1600x900-e1549035496929.jpg" />
             </div>
@@ -25,16 +27,7 @@ const Profile = () => {
             			</p>
                 </div>
             </div>
-            <div className="content__posts">
-                <h2 className="content__posts--name">
-                    My posts
-					</h2>
-                <div className="content__posts__container">
-                    <div className="content__posts__item">
-                        Posts 1
-						</div>
-                </div>
-            </div>
+            <MyPosts />
         </div>
     )
 }

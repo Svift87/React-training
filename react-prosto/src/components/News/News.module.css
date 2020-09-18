@@ -1,0 +1,9 @@
+
+.content {
+    grid-area: content;
+    background-color: wheat;
+}
+.content img {
+    grid-area: content;
+    background-color: wheat;
+}
