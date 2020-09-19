@@ -8,22 +8,3 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-.header {
-  grid-area: header;
-  background-color: green;
-}
-.header img {
-  width: 80px;
-}
-.nav {
-  grid-area: nav;
-  background-color: yellowgreen;
-}
-.content {
-  grid-area: content;
-  background-color: wheat;
-}
-.content img {
-  grid-area: content;
-  background-color: wheat;
-}
