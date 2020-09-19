@@ -3,7 +3,12 @@
     background-color: yellowgreen;
 }
 .item {
+<<<<<<< HEAD
     color: #ffffff
+=======
+    color: #ffffff;
+    text-decoration: none;
+>>>>>>> 7eaf31ef943d4b831d1aa7c3c4d1a66ad5142d14
 }
 
 .item.active {

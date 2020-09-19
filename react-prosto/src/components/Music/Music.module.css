@@ -1,13 +1,9 @@
 
 .content {
     grid-area: content;
-<<<<<<< HEAD
-    background-color: blue;
-=======
     background-color: wheat;
 }
 .content img {
     grid-area: content;
     background-color: wheat;
->>>>>>> 7eaf31ef943d4b831d1aa7c3c4d1a66ad5142d14
 }
