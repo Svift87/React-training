@@ -9,16 +9,14 @@ const MyPosts = (props) => {
     let textAdd = React.createRef();
 
     let addNewPost = () => {
-        let text = textAdd.current.value;
+        let text = props.textInPost;
 
         props.addPost(text)
     }
 
     let addTextInTexteria = () => {
         let text = textAdd.current.value;
-        
-        textAdd.current.value = ''
-
+                
         props.addText(text)
     }
 
@@ -28,7 +26,12 @@ const MyPosts = (props) => {
                 My posts
             </h2>
             <div className={s.content__posts__added}>
-                <textarea className={s.content__posts__addedTexteria} ref={textAdd} onInput={addTextInTexteria} value={props.textInTexteria}> </textarea>
+                <textarea 
+                    className={s.content__posts__addedTexteria} 
+                    ref={textAdd} 
+                    onChange={addTextInTexteria} 
+                    value={props.textInPost}
+                > </textarea>
                 <button
                     onClick={addNewPost}
                     className={s.content__posts__addedButton}

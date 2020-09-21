@@ -7,7 +7,7 @@ const Post = (props) => {
             <div className="content__posts__item">
                 {props.message}
             </div>
-            {props.like}
+            like: {props.like}
         </div>
     )
 }

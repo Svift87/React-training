@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from '../render'
+let rerenderEntireTree;
 
 let state = {
     profilePage: {
@@ -15,7 +15,7 @@ let state = {
             city: 'Novosibirsk',
             webSite: 'pokanet'
         },
-        textInTexteria: ''
+        textInPost: ''
     },
     messagesPage: {
         dialogsData: [
@@ -35,22 +35,28 @@ let state = {
     
 }
 
-export let addPost = (newPost) => {
+export const addText = (text) => {
+    state.profilePage.textInPost = text
+
+    rerenderEntireTree()
+}
+
+export const addPost = (newPost) => {
     let post = {
         id: 3,
         message: newPost,
         like: 0
     }
-
-    state.profilePage.postData.push(post)
     
-    rerenderEntireTree(state)
+    state.profilePage.postData.push(post)
+
+    addText('')
+    
+    rerenderEntireTree()
 }
 
-export let addText = (text) => {
-    state.profilePage.textInTexteria = state.profilePage.textInTexteria + text
-
-    rerenderEntireTree(state)
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;  // Наблюдатель (паттерн)
 }
 
 export default state

@@ -13,13 +13,13 @@ const App = (props) => {
 	return (
 		<BrowserRouter >
 			<div className="container">
-				<Header/>
+				<Header />
 				<Navbar />
-				<Route path='/profile' render={ () => <Profile data={props.state.profilePage} addPost={props.addPost} addText={props.addText} />} />
-				<Route path='/dialogs' render={ () => <Dialogs data={props.state.messagesPage} />} />
-				<Route path='/music' render={ () => <Music />} />
-				<Route path='/news' render={ () => <News />} />
-				<Route path='/settings' render={ () => <Settings />} />
+				<Route path='/profile' render={() => <Profile data={props.state.profilePage} addPost={props.addPost} addText={props.addText} />} />
+				<Route path='/dialogs' render={() => <Dialogs data={props.state.messagesPage} />} />
+				<Route path='/music' render={() => <Music />} />
+				<Route path='/news' render={() => <News />} />
+				<Route path='/settings' render={() => <Settings />} />
 			</div>
 		</BrowserRouter>
 	);
