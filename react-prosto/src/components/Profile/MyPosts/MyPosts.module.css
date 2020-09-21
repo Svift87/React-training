@@ -1,9 +1,34 @@
+.content__posts {
 
-.content {
-    grid-area: content;
-    background-color: wheat;
 }
-.content img {
-    grid-area: content;
-    background-color: wheat;
+.content__postsName {
+    
+}
+.content__posts__added {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.content__posts__addedTexteria {
+    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.content__posts__addedButton {
+    background-color: red;
+    border: none;
+    color: #000000;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 3px 3px 5px #000000;
+    transition: .1s;
+    cursor: pointer;
+}
+.content__posts__addedButton:hover {
+    box-shadow: 1px 1px 0px #000000;    
 }

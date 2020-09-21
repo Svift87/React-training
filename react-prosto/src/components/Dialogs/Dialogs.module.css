@@ -18,3 +18,32 @@
     display: flex;
     flex-direction: column;
 }
+.message__textContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    border-top: 1px solid #000000;
+    padding: 10px;
+}
+.message__textTexteria {
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    width: 70%;
+}
+.message__textButton {
+    background-color: red;
+    border: none;
+    color: #000000;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 3px 3px 5px #000000;
+    transition: .1s;
+    cursor: pointer;
+    width: 20%;
+}
+.message__textButton:hover {
+    box-shadow: 1px 1px 0px #000000;    
+}

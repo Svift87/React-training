@@ -2,6 +2,7 @@
 .content {
     grid-area: content;
     background-color: wheat;
+    padding: 10px;
 }
 .content img {
     grid-area: content;

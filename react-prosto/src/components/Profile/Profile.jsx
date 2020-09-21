@@ -4,11 +4,10 @@ import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
-console.log(props)
     return (
         <div className={s.content}>
             <ProfileInfo profileInfoData={props.data.profileInfoData}/>
-            <MyPosts postData={props.data.postData} />
+            <MyPosts postData={props.data.postData} textInTexteria={props.data.textInTexteria} addPost={props.addPost} addText={props.addText} />
         </div>
     )
 }

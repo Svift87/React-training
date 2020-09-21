@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render'
+
 let state = {
     profilePage: {
         postData: [
@@ -12,7 +14,8 @@ let state = {
             birthday: '22 juanvar',
             city: 'Novosibirsk',
             webSite: 'pokanet'
-        }
+        },
+        textInTexteria: ''
     },
     messagesPage: {
         dialogsData: [
@@ -30,6 +33,24 @@ let state = {
     },
     
     
+}
+
+export let addPost = (newPost) => {
+    let post = {
+        id: 3,
+        message: newPost,
+        like: 0
+    }
+
+    state.profilePage.postData.push(post)
+    
+    rerenderEntireTree(state)
+}
+
+export let addText = (text) => {
+    state.profilePage.textInTexteria = state.profilePage.textInTexteria + text
+
+    rerenderEntireTree(state)
 }
 
 export default state
