@@ -30,7 +30,7 @@ const MyPosts = (props) => {
             <div className={s.content__posts__added}>
                 <textarea className={s.content__posts__addedTexteria} ref={textAdd} onInput={addTextInTexteria} value={props.textInTexteria}> </textarea>
                 <button
-                    onInput={addNewPost}
+                    onClick={addNewPost}
                     className={s.content__posts__addedButton}
                 >
                     Отправить
