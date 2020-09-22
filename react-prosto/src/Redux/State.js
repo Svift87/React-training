@@ -1,3 +1,8 @@
+const ADD_TEXT = 'ADD-TEXT'
+const ADD_POST = 'ADD-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const ADD_MESSAGE_TEXT = 'ADD-MESSAGE-TEXT'
+
 let store = {
     _state: {
         profilePage: {
@@ -28,34 +33,49 @@ let store = {
                 { id: 2, message: "Сообщения Nik" },
                 { id: 3, message: "Сообщения Sonya" },
                 { id: 4, message: "Сообщения Vitya" },
-            ]
-        },    
+            ],
+            newMessage: ''
+        },
     },
-    _callSubscriber() {},
-
+    _callSubscriber() { },
     getState() {
         return this._state
     },
     subscribe(observer) {
         this._callSubscriber = observer;  // Наблюдатель (паттерн)
     },
-
     dispatch(action) {
-        if (action.type === "ADD-TEXT") {
-            this._state.profilePage.textInPost = action.text;        
+        if (action.type === ADD_TEXT) {
+            this._state.profilePage.textInPost = action.text;
             this._callSubscriber(this._state);
-        } else if (action.type === "ADD-POST") {
+        } else if (action.type === ADD_POST) {
             let post = {
                 id: 3,
                 message: this._state.profilePage.textInPost,
                 like: 0
-            }            
-            this._state.profilePage.postData.push(post);        
-            this._state.profilePage.textInPost = '';            
+            }
+            this._state.profilePage.postData.push(post);
+            this._state.profilePage.textInPost = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === ADD_MESSAGE_TEXT) {
+            this._state.messagesPage.newMessage = action.text;
+            this._callSubscriber(this._state);
+        } else if (action.type === ADD_MESSAGE) {
+            let newTextMessage = {
+                id: 5,
+                message: this._state.messagesPage.newMessage
+            }
+            this._state.messagesPage.messagesData.push(newTextMessage);
+            this._state.messagesPage.newMessage = '';
             this._callSubscriber(this._state);
         }
     }
 }
+
+export const addPostCreator = () => ({ type: ADD_POST })
+export const addTextCreator = (text) => ({ type: ADD_TEXT, text })
+export const addMessageCreator = () => ({ type: ADD_MESSAGE })
+export const addMessageTextCreator = (text) => ({ type: ADD_MESSAGE_TEXT, text })
 
 export default store
 window.store = store

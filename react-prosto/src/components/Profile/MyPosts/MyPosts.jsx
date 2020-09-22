@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
+import {addTextCreator, addPostCreator} from '../../../Redux/State'
 
 const MyPosts = (props) => {
 
@@ -9,14 +10,12 @@ const MyPosts = (props) => {
     let textAdd = React.createRef();
 
     let addNewPost = () => {
-        let action = {type: "ADD-POST"}
-        props.dispatch(action)
+        props.dispatch(addPostCreator())
     }
 
     let addTextInTexteria = () => {
         let text = textAdd.current.value;
-        let action = {type: "ADD-TEXT", text}
-        props.dispatch(action)
+        props.dispatch(addTextCreator(text))
     }
 
     return (
