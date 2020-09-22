@@ -3,21 +3,20 @@ import s from './MyPosts.module.css'
 import Post from './Post/Post'
 
 const MyPosts = (props) => {
-    
+
     let post = props.postData.map(el => <Post message={el.message} like={el.like} />);
 
     let textAdd = React.createRef();
 
     let addNewPost = () => {
-        let text = props.textInPost;
-
-        props.addPost(text)
+        let action = {type: "ADD-POST"}
+        props.dispatch(action)
     }
 
     let addTextInTexteria = () => {
         let text = textAdd.current.value;
-                
-        props.addText(text)
+        let action = {type: "ADD-TEXT", text}
+        props.dispatch(action)
     }
 
     return (
@@ -26,10 +25,10 @@ const MyPosts = (props) => {
                 My posts
             </h2>
             <div className={s.content__posts__added}>
-                <textarea 
-                    className={s.content__posts__addedTexteria} 
-                    ref={textAdd} 
-                    onChange={addTextInTexteria} 
+                <textarea
+                    className={s.content__posts__addedTexteria}
+                    ref={textAdd}
+                    onChange={addTextInTexteria}
                     value={props.textInPost}
                 > </textarea>
                 <button
@@ -39,7 +38,7 @@ const MyPosts = (props) => {
                     Отправить
                 </button>
             </div>
-            { post }
+            { post}
         </div>
     )
 }
