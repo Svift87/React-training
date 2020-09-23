@@ -1,3 +1,6 @@
+import messageReducer from './messageReducer'
+import profileReducer from './profileReducer'
+
 const ADD_TEXT = 'ADD-TEXT'
 const ADD_POST = 'ADD-POST'
 const ADD_MESSAGE = 'ADD-MESSAGE'
@@ -45,30 +48,9 @@ let store = {
         this._callSubscriber = observer;  // Наблюдатель (паттерн)
     },
     dispatch(action) {
-        if (action.type === ADD_TEXT) {
-            this._state.profilePage.textInPost = action.text;
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_POST) {
-            let post = {
-                id: 3,
-                message: this._state.profilePage.textInPost,
-                like: 0
-            }
-            this._state.profilePage.postData.push(post);
-            this._state.profilePage.textInPost = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_MESSAGE_TEXT) {
-            this._state.messagesPage.newMessage = action.text;
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_MESSAGE) {
-            let newTextMessage = {
-                id: 5,
-                message: this._state.messagesPage.newMessage
-            }
-            this._state.messagesPage.messagesData.push(newTextMessage);
-            this._state.messagesPage.newMessage = '';
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = messageReducer(this._state.messagesPage, action)
+        this._callSubscriber(this._state);
     }
 }
 
