@@ -2,27 +2,28 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Messages from "./Messages/Messages";
-import {addMessageCreator, addMessageTextCreator} from '../../Redux/State'
 
 const Dialogs = (props) => {
-    let dialog = props.data.dialogsData.map((el) => (
+
+    let dialog = props.state.dialogsData.map((el) => (
         <Dialog name={el.name} id={el.id} />
     ));
 
-    let messages = props.data.messagesData.map((el) => (
+    let messages = props.state.messagesData.map((el) => (
         <Messages message={el.message} />
     ));
 
     let message = React.createRef()
 
     let addMessage = () => { 
-        props.dispatch(addMessageCreator())
+        props.addMessage()
     };
 
     let addTextMessage = () => {
         let text = message.current.value;
-        props.dispatch(addMessageTextCreator(text))
+        props.addTextMessage(text)
     }
+
     return (
         <div className={s.content}>
             <div className={s.dialogs__container}>
@@ -34,7 +35,7 @@ const Dialogs = (props) => {
                             className={s.message__textTexteria}
                             onChange={addTextMessage} 
                             ref={message} 
-                            value={props.data.newMessage}
+                            value={props.state.newMessage}
                             placeholder='Введите сообщение'
                         ></textarea>
                         <button 

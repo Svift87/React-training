@@ -32,11 +32,14 @@ const profileReducer = (state = initialState, action) => {
             }
             state.postData.push(post);
             state.textInPost = '';
-
+            
             return state;
         default:
             return state;
     }
 }
+
+export const addPostCreator = () => ({ type: ADD_POST })
+export const addTextCreator = (text) => ({ type: ADD_TEXT, text })
 
 export default profileReducer

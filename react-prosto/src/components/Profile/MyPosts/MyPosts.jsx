@@ -1,23 +1,21 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
-import {addTextCreator, addPostCreator} from '../../../Redux/State'
 
 const MyPosts = (props) => {
-
-    let post = props.postData.map(el => <Post message={el.message} like={el.like} />);
+    let post = props.data.map(el => <Post message={el.message} like={el.like} />);
 
     let textAdd = React.createRef();
 
     let addNewPost = () => {
-        props.dispatch(addPostCreator())
+        props.addNewPost()
     }
 
-    let addTextInTexteria = () => {
+    let addNewText = () => {
         let text = textAdd.current.value;
-        props.dispatch(addTextCreator(text))
+        props.addNewText(text)
     }
-
+    
     return (
         <div className={s.content__posts}>
             <h2 className={s.content__postsName}>
@@ -27,8 +25,8 @@ const MyPosts = (props) => {
                 <textarea
                     className={s.content__posts__addedTexteria}
                     ref={textAdd}
-                    onChange={addTextInTexteria}
-                    value={props.textInPost}
+                    onChange={addNewText}
+                    value={props.text}
                 > </textarea>
                 <button
                     onClick={addNewPost}
@@ -37,7 +35,7 @@ const MyPosts = (props) => {
                     Отправить
                 </button>
             </div>
-            { post}
+            { post }
         </div>
     )
 }
