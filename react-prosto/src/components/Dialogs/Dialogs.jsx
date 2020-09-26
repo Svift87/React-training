@@ -6,11 +6,11 @@ import Messages from "./Messages/Messages";
 const Dialogs = (props) => {
 
     let dialog = props.messagesPage.dialogsData.map((el) => (
-        <Dialog name={el.name} id={el.id} />
+        <Dialog name={el.name} id={el.id} key={el.id} />
     ));
 
     let messages = props.messagesPage.messagesData.map((el) => (
-        <Messages message={el.message} />
+        <Messages message={el.message} key={el.id} />
     ));
 
     let message = React.createRef()

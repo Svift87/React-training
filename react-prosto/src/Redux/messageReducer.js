@@ -17,21 +17,26 @@ let initialState = {
     newMessage: ''
 }
 
-export const messageReducer = (state = initialState, action) => {
+export const messageReducer = (state = initialState, action) => {    
     switch (action.type) {
-        case ADD_MESSAGE_TEXT:
-            state.newMessage = action.text;   
-
-            return state;
-        case ADD_MESSAGE:
+        case ADD_MESSAGE_TEXT: {
+            return {
+                ...state,
+                newMessage: action.text
+            }
+        }
+        case ADD_MESSAGE: {
             let newTextMessage = {
                 id: 5,
                 message: state.newMessage
             }
-            state.messagesData.push(newTextMessage);
-            state.newMessage = '';
 
-            return state;
+            return {
+                ...state,
+                messagesData: [...state.messagesData, newTextMessage],
+                newMessage: ''
+            }
+        }
         default:
             return state;
     }

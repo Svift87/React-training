@@ -4,7 +4,7 @@ import Post from './Post/Post'
 
 const MyPosts = (props) => {
 
-    let post = props.postData.map(el => <Post message={el.message} like={el.like} />);
+    let post = props.postData.map(el => <Post message={el.message} like={el.like} key={el.id} />);
 
     let textAdd = React.createRef();
 
