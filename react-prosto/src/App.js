@@ -8,8 +8,9 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
+import UsersContainer from './components/Users/UsersContainer';
 
-const App = (props) => {
+const App = () => {
 	return (
 		<BrowserRouter >
 			<div className="container">
@@ -19,6 +20,7 @@ const App = (props) => {
 				<Route path='/dialogs' render={() => <DialogsContainer />} />
 				<Route path='/music' render={() => <Music />} />
 				<Route path='/news' render={() => <News />} />
+				<Route path='/users' render={() => <UsersContainer />} />
 				<Route path='/settings' render={() => <Settings />} />
 			</div>
 		</BrowserRouter>
