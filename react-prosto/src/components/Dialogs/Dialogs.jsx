@@ -5,11 +5,11 @@ import Messages from "./Messages/Messages";
 
 const Dialogs = (props) => {
 
-    let dialog = props.state.dialogsData.map((el) => (
+    let dialog = props.messagesPage.dialogsData.map((el) => (
         <Dialog name={el.name} id={el.id} />
     ));
 
-    let messages = props.state.messagesData.map((el) => (
+    let messages = props.messagesPage.messagesData.map((el) => (
         <Messages message={el.message} />
     ));
 
@@ -35,7 +35,7 @@ const Dialogs = (props) => {
                             className={s.message__textTexteria}
                             onChange={addTextMessage} 
                             ref={message} 
-                            value={props.state.newMessage}
+                            value={props.messagesPage.newMessage}
                             placeholder='Введите сообщение'
                         ></textarea>
                         <button 

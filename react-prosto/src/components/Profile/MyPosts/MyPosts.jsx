@@ -3,7 +3,8 @@ import s from './MyPosts.module.css'
 import Post from './Post/Post'
 
 const MyPosts = (props) => {
-    let post = props.data.map(el => <Post message={el.message} like={el.like} />);
+
+    let post = props.postData.map(el => <Post message={el.message} like={el.like} />);
 
     let textAdd = React.createRef();
 
@@ -26,7 +27,7 @@ const MyPosts = (props) => {
                     className={s.content__posts__addedTexteria}
                     ref={textAdd}
                     onChange={addNewText}
-                    value={props.text}
+                    value={props.textInPost}
                 > </textarea>
                 <button
                     onClick={addNewPost}
