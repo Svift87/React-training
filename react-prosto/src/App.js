@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
@@ -16,12 +16,15 @@ const App = () => {
 			<div className="container">
 				<Header />
 				<Navbar />
-				<Route path='/profile' render={() => <Profile />} />
-				<Route path='/dialogs' render={() => <DialogsContainer />} />
-				<Route path='/music' render={() => <Music />} />
-				<Route path='/news' render={() => <News />} />
-				<Route path='/users' render={() => <UsersContainer />} />
-				<Route path='/settings' render={() => <Settings />} />
+				<Switch>
+					<Route path='/profile' render={() => <Profile />} />
+					<Route path='/dialogs' render={() => <DialogsContainer />} />
+					<Route path='/music' render={() => <Music />} />
+					<Route path='/news' render={() => <News />} />
+					<Route path='/users' render={() => <UsersContainer />} />
+					<Route path='/settings' render={() => <Settings />} />
+					<Route render={() => <Settings />}/>
+				</Switch>
 			</div>
 		</BrowserRouter>
 	);
