@@ -7,22 +7,26 @@ class UsersApiComponents extends React.Component {
         super(props);
     }
     componentDidMount() {
+        this.props.toggleFetching(true)
         Axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.sizePage}`)
             .then(response => {                
-                this.props.setUsersAC(response.data.items)
-                this.props.totalUserAC(response.data.totalCount)
+                this.props.toggleFetching(false)
+                this.props.setUsers(response.data.items)
+                this.props.totalUser(response.data.totalCount)
             })
     }
     componentDidUpdate() {
 
     }
     onPageChanged = (el) => {
-        this.props.setCurrentPageAC(el)
+        this.props.toggleFetching(true)
+        this.props.setCurrentPage(el)
         Axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${el}&count=${this.props.sizePage}`)
-            .then(response => {                
-                this.props.setUsersAC(response.data.items)
+            .then(response => {          
+                this.props.toggleFetching(false)      
+                this.props.setUsers(response.data.items)
             })
     }
     render() {
@@ -31,10 +35,11 @@ class UsersApiComponents extends React.Component {
                     sizePage={this.props.sizePage} 
                     currentPage={this.props.currentPage} 
                     onPageChanged={this.onPageChanged}
-                    unfollowAC={this.props.unfollowAC}
-                    followAC={this.props.followAC}
-                    setUsersAC={this.props.setUsersAC}
+                    unfollow={this.props.unfollow}
+                    follow={this.props.follow}
+                    setUsers={this.props.setUsers}
                     users={this.props.users}
+                    isFatching={this.props.isFatching}
                 />
     }
 }

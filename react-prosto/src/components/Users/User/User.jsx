@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './User.module.css'
 import userPhoto from '../../../img/noavatar.png'
+import Preloader from '../../common/Preloader/Preloader';
 
 let User = (props) => {
     let pageCount = Math.ceil(props.totalUserCount / props.sizePage);
@@ -40,6 +41,7 @@ let User = (props) => {
 
     return (
         <div className={s.content}>
+            { props.isFatching ? <Preloader /> : null }
             <div className={s.pagination}>
                 {pages.map(el => <button className={el === props.currentPage && s.active} onClick={(e) => { props.onPageChanged(el) }} > {el} </button>)}
             </div>
@@ -50,8 +52,8 @@ let User = (props) => {
                             ? el.photos.small
                             : userPhoto} alt="" />
                         {el.followed
-                            ? <button onClick={() => { props.unfollowAC(el.id) }} > Follow </button>
-                            : <button onClick={() => { props.followAC(el.id) }} >Unfollow</button>}
+                            ? <button onClick={() => { props.unfollow(el.id) }} > Follow </button>
+                            : <button onClick={() => { props.follow(el.id) }} >Unfollow</button>}
                     </div>
                     <div className={s.data}>
                         <div className={s.data_info_container}>
@@ -66,7 +68,7 @@ let User = (props) => {
                 </div>
                 )
             }
-            <button onClick={props.setUsersAC} >Show more</button>
+            <button onClick={props.setUsers} >Show more</button>
         </div>
     )
 }
