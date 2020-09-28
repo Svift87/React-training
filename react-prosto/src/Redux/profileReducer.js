@@ -1,5 +1,6 @@
 const ADD_TEXT = 'ADD-TEXT'
 const ADD_POST = 'ADD-POST'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 let initialState = {
     postData: [
@@ -7,25 +8,37 @@ let initialState = {
         { id: 2, message: "It`s my first post", like: 15 },
     ],
     profileInfoData: {
-        id: 1,
-        banner: 'https://best-quote.ru/wp-content/uploads/2019/01/rossiya_harkov_park_vecher_lavochka_879_1600x900-e1549035496929.jpg',
-        avatar: 'https://static.mk.ru/upload/entities/2020/08/13/17/articles/detailPicture/9d/5d/76/5a/4991c61486bc262f5d90dc64fc67cec9.jpg',
-        name: 'Sergey K',
-        birthday: '22 juanvar',
-        city: 'Novosibirsk',
-        webSite: 'pokanet'
+        aboutMe: "Фронтовик от бога",
+        contacts: {
+            facebook: null,
+            github: null,
+            instagram: null,
+            mainLink: null,
+            twitter: null,
+            vk: "https://vk.com/id37741869",
+            website: null,
+            youtube: null
+        },        
+        fullName: "Sergey K",
+        lookingForAJob: true,
+        lookingForAJobDescription: null,
+        photos: {
+            large: "https://static.mk.ru/upload/entities/2020/08/13/17/articles/detailPicture/9d/5d/76/5a/4991c61486bc262f5d90dc64fc67cec9.jpg",
+            small: "https://static.mk.ru/upload/entities/2020/08/13/17/articles/detailPicture/9d/5d/76/5a/4991c61486bc262f5d90dc64fc67cec9.jpg"        
+        },        
+        userId: 1
     },
     textInPost: ''
 }
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_TEXT: 
+        case ADD_TEXT:
             return {
                 ...state,
                 textInPost: action.text
             }
-        case ADD_POST:         
+        case ADD_POST:
             let post = {
                 id: 3,
                 message: state.textInPost,
@@ -33,9 +46,14 @@ const profileReducer = (state = initialState, action) => {
             }
 
             return {
-                ...state, 
+                ...state,
                 postData: [...state.postData, post],
                 textInPost: ''
+            }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profileInfoData: action.profileInfoData
             }
         default:
             return state;
@@ -44,5 +62,6 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostCreator = () => ({ type: ADD_POST })
 export const addTextCreator = (text) => ({ type: ADD_TEXT, text })
+export const setUserProfile = (profileInfoData) => ({ type: SET_USER_PROFILE, profileInfoData })
 
 export default profileReducer

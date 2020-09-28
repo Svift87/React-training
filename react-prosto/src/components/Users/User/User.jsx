@@ -2,6 +2,7 @@ import React from 'react';
 import s from './User.module.css'
 import userPhoto from '../../../img/noavatar.png'
 import Preloader from '../../common/Preloader/Preloader';
+import { NavLink } from 'react-router-dom';
 
 let User = (props) => {
     let pageCount = Math.ceil(props.totalUserCount / props.sizePage);
@@ -38,19 +39,20 @@ let User = (props) => {
         }
         pages.sort(compareNumeric);
     }
-
     return (
         <div className={s.content}>
-            { props.isFatching ? <Preloader /> : null }
+            { props.isFatching ? <Preloader /> : null}
             <div className={s.pagination}>
                 {pages.map(el => <button className={el === props.currentPage && s.active} onClick={(e) => { props.onPageChanged(el) }} > {el} </button>)}
             </div>
             {
                 props.users.map(el => <div className={s.container} key={el.id} >
                     <div className={s.img_container}>
-                        <img src={el.photos.small != null
-                            ? el.photos.small
-                            : userPhoto} alt="" />
+                        <NavLink to={`/profile/${el.id}`}>
+                            <img src={el.photos.small != null
+                                ? el.photos.small
+                                : userPhoto} alt="" />
+                        </NavLink>
                         {el.followed
                             ? <button onClick={() => { props.unfollow(el.id) }} > Follow </button>
                             : <button onClick={() => { props.follow(el.id) }} >Unfollow</button>}

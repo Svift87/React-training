@@ -2,11 +2,12 @@ import React from 'react';
 import s from './Profile.module.css'
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import ProfileInfoConteiner from './ProfileInfo/ProfileInfoConteiner';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={s.content}>
-            <ProfileInfoConteiner />
+            <ProfileInfo profile={props.profileInfoData} />
             <MyPostsContainer />
         </div>
     )
