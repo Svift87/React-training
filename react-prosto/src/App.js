@@ -17,7 +17,7 @@ const App = () => {
 				<Header />
 				<Navbar />
 				<Switch>
-					<Route path='/profile' render={() => <ProfileContainer />} />
+					<Route path='/profile/:userId?' render={() => <ProfileContainer />} /> // Вопросительный знак отвечает за опциональность, может быть, а может и не быть и тогда мы получим свой профиль например
 					<Route path='/dialogs' render={() => <DialogsContainer />} />
 					<Route path='/music' render={() => <Music />} />
 					<Route path='/news' render={() => <News />} />
