@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
@@ -14,7 +14,7 @@ const App = () => {
 	return (
 		<BrowserRouter >
 			<div className="container">
-				<Header />
+				<HeaderContainer />
 				<Navbar />
 				<Switch>
 					<Route path='/profile/:userId?' render={() => <ProfileContainer />} /> // Вопросительный знак отвечает за опциональность, может быть, а может и не быть и тогда мы получим свой профиль например

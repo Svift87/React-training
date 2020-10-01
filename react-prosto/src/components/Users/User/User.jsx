@@ -3,6 +3,7 @@ import s from './User.module.css'
 import userPhoto from '../../../img/noavatar.png'
 import Preloader from '../../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
+import Axios from 'axios';
 
 let User = (props) => {
     let pageCount = Math.ceil(props.totalUserCount / props.sizePage);
@@ -39,6 +40,7 @@ let User = (props) => {
         }
         pages.sort(compareNumeric);
     }
+    
     return (
         <div className={s.content}>
             { props.isFatching ? <Preloader /> : null}
@@ -53,9 +55,38 @@ let User = (props) => {
                                 ? el.photos.small
                                 : userPhoto} alt="" />
                         </NavLink>
+                        
                         {el.followed
-                            ? <button onClick={() => { props.unfollow(el.id) }} > Follow </button>
-                            : <button onClick={() => { props.follow(el.id) }} >Unfollow</button>}
+                            ? <button onClick={() => {
+                                Axios
+                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': '9fd56641-0136-4192-9dff-106ac6213c71'
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.data.resultCode === 1) {
+                                            props.follow(el.id)
+                                        }                                        
+                                    })
+                            }} >Unfollow</button>
+                            : <button onClick={() => {
+                                Axios
+                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': '9fd56641-0136-4192-9dff-106ac6213c71'
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.data.resultCode === 1) {
+                                            props.unfollow(el.id)
+                                        }                                        
+                                    })
+                            }} > Follow </button>
+                        }
+                             
                     </div>
                     <div className={s.data}>
                         <div className={s.data_info_container}>
