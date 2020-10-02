@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api"
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -9,7 +11,7 @@ const IS_FATCHING_DISABLED_BTN = 'IS_FATCHING_DISABLED_BTN'
 
 let initialState = {
     users: [],
-    sizePage: 5,
+    sizePage: 10,
     totalUserCount: 80,
     currentPage: 1,
     isFatching: false,
@@ -63,8 +65,8 @@ const usersReducer = (state = initialState, action) => {
         case IS_FATCHING_DISABLED_BTN:
             return {
                 ...state,
-                followingInProgress: action.isFatching 
-                    ? [...state.followingInProgress, action.userId] 
+                followingInProgress: action.isFatching
+                    ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id != action.userId)
             }
         default:
@@ -72,13 +74,57 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const follow = (userId) => ({ type: FOLLOW, userId })
-export const unfollow = (userId) => ({ type: UNFOLLOW, userId })
+export const followSuccess = (userId) => ({ type: FOLLOW, userId })
+export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId })
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const totalUser = (totalUserCount) => ({ type: TOTAL_USER_COUNT, totalUserCount })
 export const toggleFetching = (isFatching) => ({ type: TOGGLE_FETCHING, isFatching })
 export const disabledBtn = (isFatching, userId) => ({ type: IS_FATCHING_DISABLED_BTN, isFatching, userId })
+
+
+// Санки
+
+export const getUsers = (currentPage, sizePage) => {
+    return (dispatch) => {
+        dispatch(toggleFetching(true))
+        usersAPI.getUsers(currentPage, sizePage)
+            .then(data => {
+                dispatch(toggleFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(totalUser(data.totalCount))
+            })
+    }
+}
+
+export const follow = (id) => {
+    return (dispatch) => {
+        dispatch(disabledBtn(true, id))
+        usersAPI.folow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(disabledBtn(false, id))
+                    dispatch(unfollowSuccess(id))
+                }
+            })
+    }
+}
+
+export const unfollow = (id) => {
+    return (dispatch) => {
+        dispatch(disabledBtn(true, id))
+        usersAPI.unFolow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(disabledBtn(false, id))
+                    dispatch(followSuccess(id))
+                }
+            })
+    }
+}
+
+
+
 
 
 export default usersReducer

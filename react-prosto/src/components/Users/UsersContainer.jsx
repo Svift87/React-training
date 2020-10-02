@@ -1,7 +1,7 @@
 import React from 'react';
 import User from './User/User';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setUsers, totalUser, unfollow, toggleFetching, disabledBtn } from '../../Redux/usersReducer';
+import { follow, setCurrentPage, unfollow, getUsers } from '../../Redux/usersReducer';
 import { usersAPI } from '../../api/api';
 
 class UsersApiComponents extends React.Component {
@@ -9,25 +9,15 @@ class UsersApiComponents extends React.Component {
         super(props);
     }
     componentDidMount() {
-        this.props.toggleFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.sizePage)
-            .then(data => {
-                this.props.toggleFetching(false)
-                this.props.setUsers(data.items)
-                this.props.totalUser(data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.sizePage)
     }
     componentDidUpdate() {
 
     }
     onPageChanged = (el) => {
-        this.props.toggleFetching(true);
         this.props.setCurrentPage(el);
-        usersAPI.getUsers(el, this.props.sizePage)
-            .then(data => {
-                this.props.toggleFetching(false)
-                this.props.setUsers(data.items)
-            })
+
+        this.props.getUsers(el, this.props.sizePage)
     }
     render() {
         return <User
@@ -37,10 +27,8 @@ class UsersApiComponents extends React.Component {
             onPageChanged={this.onPageChanged}
             unfollow={this.props.unfollow}
             follow={this.props.follow}
-            setUsers={this.props.setUsers}
             users={this.props.users}
             isFatching={this.props.isFatching}
-            disabledBtn={this.props.disabledBtn}
             followingInProgress={this.props.followingInProgress}
         />
     }
@@ -83,9 +71,6 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    totalUser,
-    toggleFetching,
-    disabledBtn
+    getUsers
 })(UsersApiComponents)

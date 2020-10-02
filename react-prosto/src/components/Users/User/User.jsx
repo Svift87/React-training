@@ -3,7 +3,7 @@ import s from './User.module.css'
 import userPhoto from '../../../img/noavatar.png'
 import Preloader from '../../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
-import { followAPI } from '../../../api/api';
+import { followAPI, usersAPI } from '../../../api/api';
 
 let User = (props) => {
     let pageCount = Math.ceil(props.totalUserCount / props.sizePage);
@@ -58,24 +58,10 @@ let User = (props) => {
 
                         {el.followed
                             ? <button disabled={props.followingInProgress.some(id => id === el.id)} onClick={() => {
-                                props.disabledBtn(true, el.id)
-                                followAPI.getFolow(el.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.disabledBtn(false, el.id)
-                                            props.unfollow(el.id)
-                                        }
-                                    })
+                                props.follow(el.id)
                             }} >Unfollow</button>
                             : <button disabled={props.followingInProgress.some(id => id === el.id)}  onClick={() => {
-                                props.disabledBtn(true, el.id)
-                                followAPI.getUnFolow(el.id)
-                                    .then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.disabledBtn(false, el.id)
-                                            props.follow(el.id)
-                                        }
-                                    })
+                                props.unfollow(el.id)
                             }} > Follow </button>
                         }
 
@@ -93,7 +79,6 @@ let User = (props) => {
                 </div>
                 )
             }
-            <button onClick={props.setUsers} >Show more</button>
         </div>
     )
 }
