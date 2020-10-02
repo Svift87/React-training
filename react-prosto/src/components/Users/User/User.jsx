@@ -3,7 +3,7 @@ import s from './User.module.css'
 import userPhoto from '../../../img/noavatar.png'
 import Preloader from '../../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
-import Axios from 'axios';
+import { followAPI } from '../../../api/api';
 
 let User = (props) => {
     let pageCount = Math.ceil(props.totalUserCount / props.sizePage);
@@ -55,38 +55,30 @@ let User = (props) => {
                                 ? el.photos.small
                                 : userPhoto} alt="" />
                         </NavLink>
-                        
+
                         {el.followed
-                            ? <button onClick={() => {
-                                Axios
-                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '9fd56641-0136-4192-9dff-106ac6213c71'
+                            ? <button disabled={props.followingInProgress.some(id => id === el.id)} onClick={() => {
+                                props.disabledBtn(true, el.id)
+                                followAPI.getFolow(el.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.disabledBtn(false, el.id)
+                                            props.unfollow(el.id)
                                         }
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode === 1) {
-                                            props.follow(el.id)
-                                        }                                        
                                     })
                             }} >Unfollow</button>
-                            : <button onClick={() => {
-                                Axios
-                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': '9fd56641-0136-4192-9dff-106ac6213c71'
+                            : <button disabled={props.followingInProgress.some(id => id === el.id)}  onClick={() => {
+                                props.disabledBtn(true, el.id)
+                                followAPI.getUnFolow(el.id)
+                                    .then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.disabledBtn(false, el.id)
+                                            props.follow(el.id)
                                         }
-                                    })
-                                    .then(response => {
-                                        if (response.data.resultCode === 1) {
-                                            props.unfollow(el.id)
-                                        }                                        
                                     })
                             }} > Follow </button>
                         }
-                             
+
                     </div>
                     <div className={s.data}>
                         <div className={s.data_info_container}>

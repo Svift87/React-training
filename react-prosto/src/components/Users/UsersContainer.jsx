@@ -1,7 +1,50 @@
 import React from 'react';
+import User from './User/User';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, setUsers, totalUser, unfollow, toggleFetching } from '../../Redux/usersReducer';
-import UsersApiComponents from './UsersApiComponents';
+import { follow, setCurrentPage, setUsers, totalUser, unfollow, toggleFetching, disabledBtn } from '../../Redux/usersReducer';
+import { usersAPI } from '../../api/api';
+
+class UsersApiComponents extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        this.props.toggleFetching(true)
+        usersAPI.getUsers(this.props.currentPage, this.props.sizePage)
+            .then(data => {
+                this.props.toggleFetching(false)
+                this.props.setUsers(data.items)
+                this.props.totalUser(data.totalCount)
+            })
+    }
+    componentDidUpdate() {
+
+    }
+    onPageChanged = (el) => {
+        this.props.toggleFetching(true);
+        this.props.setCurrentPage(el);
+        usersAPI.getUsers(el, this.props.sizePage)
+            .then(data => {
+                this.props.toggleFetching(false)
+                this.props.setUsers(data.items)
+            })
+    }
+    render() {
+        return <User
+            totalUserCount={this.props.totalUserCount}
+            sizePage={this.props.sizePage}
+            currentPage={this.props.currentPage}
+            onPageChanged={this.onPageChanged}
+            unfollow={this.props.unfollow}
+            follow={this.props.follow}
+            setUsers={this.props.setUsers}
+            users={this.props.users}
+            isFatching={this.props.isFatching}
+            disabledBtn={this.props.disabledBtn}
+            followingInProgress={this.props.followingInProgress}
+        />
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
@@ -9,7 +52,8 @@ let mapStateToProps = (state) => {
         sizePage: state.usersPage.sizePage,
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
-        isFatching: state.usersPage.isFatching
+        isFatching: state.usersPage.isFatching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -42,5 +86,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     totalUser,
-    toggleFetching
+    toggleFetching,
+    disabledBtn
 })(UsersApiComponents)
